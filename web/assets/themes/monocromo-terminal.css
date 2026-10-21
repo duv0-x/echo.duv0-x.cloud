@@ -1,0 +1,358 @@
+/*
+  theme-title: Monocromo Terminal
+  theme-description: duv0-x.cloud design system: pure monochrome, dark only, Space Grotesk + Geist + JetBrains Mono, 1px borders
+*/
+
+@import url("../dist/_prism-dark.css");
+
+/*
+  Fonts are self-hosted because the CSP only allows 'self'.
+  Sources: @fontsource-variable/{geist,space-grotesk,jetbrains-mono}@5.3.0 (OFL-1.1).
+*/
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('../fonts/geist/geist-latin-ext-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('../fonts/geist/geist-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300 700;
+  src: url('../fonts/space-grotesk/space-grotesk-latin-ext-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300 700;
+  src: url('../fonts/space-grotesk/space-grotesk-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 800;
+  src: url('../fonts/jetbrains-mono/jetbrains-mono-latin-ext-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 800;
+  src: url('../fonts/jetbrains-mono/jetbrains-mono-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/*
+  Every variable is set to a literal value so the base stylesheet's
+  prefers-color-scheme: light overrides can't leak in: this theme is dark only.
+*/
+:root {
+  --mt-bg: #0a0a0b;
+  --mt-surface: #121214;
+  --mt-surface-2: #18181b;
+  --mt-surface-3: #27272a;
+  --mt-border: #2a2a2e;
+  --mt-text: #ededed;
+  --mt-subtle: #a1a1aa;
+  --mt-muted: #71717a;
+  --mt-faint: #52525b;
+  --mt-mono: 'JetBrains Mono', 'Noto Sans Mono', monospace;
+  --mt-head: 'Space Grotesk', 'Geist', sans-serif;
+  --mt-line: 1px solid var(--mt-border);
+
+  /* Base palette (the accents collapse to grays) */
+  --white1: #ededed;
+  --white2: #a1a1aa;
+  --gray1: #0a0a0b;
+  --gray2: #121214;
+  --gray3: #18181b;
+  --gray4: #1f1f23;
+  --gray5: #27272a;
+  --gray6: #2a2a2e;
+  --gray7: #3f3f46;
+  --gray8: #52525b;
+  --orange1: #a1a1aa;
+  --orange2: #ededed;
+  --blue1: #52525b;
+  --blue2: #d4d4d8;
+  --blue3: #ededed;
+  --green1: #d4d4d8;
+  --info-fg: #0a0a0b;
+  --info-bg: #d4d4d8;
+
+  --bg: var(--mt-bg);
+  --bg-trans: rgba(10, 10, 11, 0.8);
+  --bg-accent: var(--mt-surface);
+  --fg: var(--mt-text);
+  --fg-accent: var(--mt-text);
+  --fg-reduced: var(--mt-subtle);
+  --border-accent: var(--mt-border);
+  --link-fg: var(--mt-text);
+
+  --role-admin: var(--mt-subtle);
+  --role-mod: var(--mt-subtle);
+  --profile-bg: var(--mt-surface);
+  --avatar-border: var(--mt-border);
+
+  --button-bg: var(--mt-text);
+  --button-fg: var(--mt-bg);
+  --button-hover-bg: #d4d4d8;
+  --button-focus-border: var(--mt-subtle);
+  --button-border: 1px solid transparent;
+
+  --status-bg: var(--mt-surface);
+  --status-info-bg: var(--mt-bg);
+  --status-focus-bg: var(--mt-surface-2);
+  --status-focus-info-bg: var(--mt-surface);
+  --status-info-border: var(--mt-border);
+  --no-img-desc-bg: var(--mt-text);
+  --no-img-desc-fg: var(--mt-bg);
+  --bg-sensitive: var(--mt-bg);
+
+  --input-bg: var(--mt-bg);
+  --input-disabled-bg: var(--mt-surface);
+  --input-border: var(--mt-border);
+  --input-focus-border: var(--mt-subtle);
+
+  --settings-nav-bg: var(--mt-bg);
+  --settings-nav-header-fg: var(--mt-muted);
+  --settings-nav-bg-hover: var(--mt-surface-2);
+  --settings-nav-fg-hover: var(--mt-text);
+  --settings-nav-bg-active: var(--mt-text);
+  --settings-nav-border-active: var(--mt-text);
+  --settings-nav-fg-active: var(--mt-bg);
+
+  --list-entry-bg: var(--mt-surface);
+  --list-entry-alternate-bg: var(--mt-surface-2);
+  --list-entry-hover-bg: var(--mt-surface-3);
+
+  --plyr-color-main: var(--mt-text);
+
+  /* 1px borders, no shadows, 4px radius */
+  --boxshadow: none;
+  --boxshadow-border: var(--mt-line);
+  --br: 4px;
+  --br-inner: 4px;
+}
+
+html, body {
+  background: var(--mt-bg);
+  font-family: 'Geist', 'Noto Sans', sans-serif;
+  scrollbar-color: var(--mt-faint) var(--mt-bg);
+}
+
+h1, h2, h3, h4, h5, h6,
+.profile .profile-header .basic-info .namerole .displayname {
+  font-family: var(--mt-head);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+a {
+  text-decoration-color: var(--mt-faint);
+  text-underline-offset: 0.2em;
+}
+a:hover {
+  text-decoration-color: var(--mt-text);
+}
+
+/* Mono for chrome, meta, buttons and code */
+code, pre, kbd, samp,
+button, .button,
+.page-footer,
+.col-header,
+.profile .profile-header .basic-info .namerole .username,
+.profile .profile-header .basic-info .namerole .role,
+.profile .about-user dl,
+.status .status-info,
+.status .author-strap .username {
+  font-family: var(--mt-mono);
+}
+
+button, .button {
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow: none;
+}
+
+/* Header: wordmark + blinking cursor */
+.page-header {
+  border-bottom: var(--mt-line);
+  padding: 1rem 0;
+  /* Inherit the page's columns (they differ per page) so the wordmark lines up with the content. */
+  display: grid;
+  grid-template-columns: subgrid;
+  row-gap: 0.75rem;
+}
+.page-header > * {
+  grid-column: 2;
+}
+.page-header > a {
+  justify-content: flex-start;
+}
+.page-header > a img,
+.page-header > a picture {
+  max-height: 2rem;
+}
+.page-header > a h1 {
+  font-family: var(--mt-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--mt-text);
+}
+.page-header > a h1::after {
+  content: "_";
+  animation: mt-blink 1.1s steps(1) infinite;
+}
+@keyframes mt-blink {
+  50% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-header > a h1::after { animation: none; }
+}
+.page-header aside {
+  font-style: normal;
+  font-size: 0.875rem;
+  color: var(--mt-muted);
+  text-align: left;
+}
+.page-header aside .count {
+  color: var(--mt-text);
+}
+
+/* Footer */
+.page-footer {
+  border-top: var(--mt-line);
+  font-size: 0.75rem;
+}
+.page-footer nav ul li a {
+  font-weight: 400;
+  color: var(--mt-muted);
+  text-decoration: none;
+}
+.page-footer nav ul li a:hover {
+  color: var(--mt-text);
+}
+
+/* Section headers: `// title` */
+.col-header {
+  border: var(--mt-line);
+  background: var(--mt-surface);
+}
+.col-header h1, .col-header h2, .col-header h3, .col-header h4 {
+  font-family: var(--mt-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: lowercase;
+  color: var(--mt-subtle);
+}
+.col-header h1::before, .col-header h2::before,
+.col-header h3::before, .col-header h4::before {
+  content: "// ";
+  color: var(--mt-faint);
+}
+
+/* Profile */
+.profile .profile-header {
+  border: var(--mt-line);
+}
+.profile .profile-header .basic-info .namerole .username {
+  color: var(--mt-subtle);
+}
+.profile .profile-header .basic-info .namerole .role {
+  color: var(--mt-subtle);
+  border: var(--mt-line);
+  border-radius: 4px;
+}
+.profile .profile-header .basic-info .avatar-image-wrapper,
+.status .author .avatar {
+  border: var(--mt-line);
+}
+.profile .about-user .col-header {
+  border-bottom: none;
+}
+.profile .about-user .fields,
+.profile .about-user .bio,
+.profile .about-user .accountstats {
+  background: var(--mt-surface);
+  border-left: var(--mt-line);
+  border-right: var(--mt-line);
+}
+.profile .about-user .accountstats {
+  border-bottom: var(--mt-line);
+}
+.profile .about-user .fields .field {
+  border-bottom: var(--mt-line);
+}
+.profile .about-user dl dt {
+  color: var(--mt-muted);
+  font-weight: 400;
+}
+
+/* Statuses */
+.status {
+  border: var(--mt-line);
+}
+.status .author-strap .username {
+  color: var(--mt-subtle);
+}
+.status .status-info {
+  color: var(--mt-muted);
+  font-size: 0.75rem;
+}
+.status .media .media-wrapper {
+  border: var(--mt-line);
+  background: var(--mt-bg);
+}
+.status .text .poll {
+  background-color: var(--mt-bg);
+  border: var(--mt-line);
+}
+.status .text .poll .poll-info {
+  background-color: var(--mt-surface);
+}
+
+/* Code + quotes */
+pre, pre[class*="language-"],
+code, code[class*="language-"] {
+  background: var(--mt-bg);
+  color: var(--mt-text);
+  border: var(--mt-line);
+  border-radius: 4px;
+}
+pre code, pre code[class*="language-"] {
+  border: none;
+}
+blockquote {
+  background-color: var(--mt-surface);
+  border-left: 2px solid var(--mt-faint);
+  color: var(--mt-subtle);
+}
+
+hr {
+  border-color: var(--mt-border);
+}
+
+/* Inputs */
+input, select, textarea, .input {
+  border: var(--mt-line);
+  border-radius: 4px;
+}
