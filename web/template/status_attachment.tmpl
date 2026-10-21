@@ -25,6 +25,10 @@
     {{- if .Description }}
     alt="{{- .Description -}}"
     {{- end }}
+    {{- if and (eq .Type "image") .URL .Meta.Original.Width }}
+    srcset="{{- .PreviewURL }} {{ .Meta.Small.Width -}}w, {{ .URL }} {{ .Meta.Original.Width -}}w"
+    sizes="(max-width: 65rem) 95vw, 62rem"
+    {{- end }}
     width="{{- .Meta.Small.Width -}}"
     height="{{- .Meta.Small.Height -}}"
     data-blurhash-hash="{{- .Blurhash -}}"

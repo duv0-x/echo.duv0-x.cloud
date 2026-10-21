@@ -206,10 +206,6 @@ button, .button {
 .page-header > a {
   justify-content: flex-start;
 }
-.page-header > a img,
-.page-header > a picture {
-  max-height: 2rem;
-}
 .page-header > a h1 {
   font-family: var(--mt-mono);
   font-size: 0.875rem;
@@ -290,13 +286,28 @@ button, .button {
 .profile .profile-header {
   border: var(--mt-line);
 }
-.profile .profile-header .basic-info .namerole .username {
+.profile .profile-header .basic-info .namerole .bot-username-wrapper .username {
   color: var(--mt-subtle);
+  font-size: 0.875rem;
+  font-weight: 400;
 }
 .profile .profile-header .basic-info .namerole .role {
   color: var(--mt-subtle);
   border: var(--mt-line);
   border-radius: 4px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  font-variant: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1rem;
+  padding: 0.125rem 0.375rem;
+}
+/* Shorter banner on desktop (upstream uses 3:1) */
+@media screen and (min-width: 751px) {
+  .profile .profile-header .header-image-wrapper {
+    aspect-ratio: 5;
+  }
 }
 .profile .profile-header .basic-info .avatar-image-wrapper,
 .status .author .avatar {
@@ -327,8 +338,14 @@ button, .button {
 .status {
   border: var(--mt-line);
 }
-.status .author-strap .username {
+.status .status-header > address > a .author-strap .username {
   color: var(--mt-subtle);
+  font-size: 0.8125rem;
+  line-height: 1.1rem;
+}
+/* Name + handle sit at the bottom-left, next to the avatar */
+.status .status-header > address > a .author-strap {
+  align-self: end;
 }
 .status .status-info {
   color: var(--mt-muted);
