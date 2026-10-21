@@ -156,6 +156,7 @@ var funcMap = template.FuncMap{
 	"timestampPrecise":    timestampPrecise,
 	"timestampVague":      timestampVague,
 	"visibilityIcon":      visibilityIcon,
+	"versionCommit":       versionCommit,
 }
 
 func oddOrEven(n int) string {
@@ -512,6 +513,15 @@ func outdentPreformatted(html template.HTML) template.HTML {
 
 // isNil will safely check if 'v' is nil without
 // dealing with weird Go interface nil bullshit.
+// versionCommit returns the short commit from a version
+// string like "0.22.2-echo.3+git-8d5a34b", or "main" if it has none.
+func versionCommit(version string) string {
+	if _, commit, ok := strings.Cut(version, "+git-"); ok {
+		return commit
+	}
+	return "main"
+}
+
 func isNil(i interface{}) bool {
 	type eface struct{ _, data unsafe.Pointer }
 	return (*eface)(unsafe.Pointer(&i)).data == nil

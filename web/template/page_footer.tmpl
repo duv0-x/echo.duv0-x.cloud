@@ -20,58 +20,19 @@
 {{- with . }}
 <nav>
     <ul class="nodot">
-        <li id="about">
-            <a
-                href="/about"
-                class="nounderline"
-            >
-                About {{ .instance.Title }}
-            </a>
+        <li id="copyright">
+            © 2026&nbsp;<a href="https://duv0-x.cloud" class="nounderline">duv0-x</a>
         </li>
-        {{- if .showAcctDir }}
-        <li id="directory">
-            <a
-                href="/directory"
-                class="nounderline"
-            >
-                Account Directory
-            </a>
-        </li>
-        {{- end }}
         <li id="version">
+            {{- /* AGPL-3.0 §13: link to the exact source this instance runs. */}}
             <a
-                href="https://github.com/duv0-x/echo.duv0-x.cloud"
+                href="https://github.com/duv0-x/echo.duv0-x.cloud/commit/{{- versionCommit .instance.Version -}}"
                 class="nounderline"
-                rel="nofollow noreferrer noopener"
+                title="Source code (AGPL-3.0): GoToSocial {{ .instance.Version }}"
+                rel="noreferrer noopener"
                 target="_blank"
-            >
-                <span aria-hidden="true">🦥🏳️‍🌈</span>
-                Source - GoToSocial {{ .instance.Version }}
-                <span aria-hidden="true">🏳️‍⚧️🦥</span>
-            </a>
+            >v{{- versionCommit .instance.Version -}}</a>
         </li>
-        {{- if .instance.ContactAccount }} 
-        <li id="contact">
-            <a
-                href="/@{{- .instance.ContactAccount.Username -}}"
-                class="nounderline"
-            >
-                Contact account - {{ .instance.ContactAccount.Username }}
-            </a>
-        </li>
-        {{- end }}
-        {{- if .instance.Email }} 
-        <li id="email">
-            <a
-                href="mailto:{{- .instance.Email -}}"
-                class="nounderline"
-                rel="nofollow noreferrer noopener"
-                target="_blank"
-            >
-                Email - {{ .instance.Email }}
-            </a>
-        </li>
-        {{- end }}
     </ul>
 </nav>
 {{- end }}

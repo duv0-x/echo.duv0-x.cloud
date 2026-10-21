@@ -267,3 +267,15 @@ significant whitespace!
 		t.Fatalf("unexpected output:\n`%s`\n", out)
 	}
 }
+
+func TestVersionCommit(t *testing.T) {
+	for in, want := range map[string]string{
+		"0.22.2-echo.3+git-8d5a34b": "8d5a34b",
+		"0.22.2":                    "main",
+		"":                          "main",
+	} {
+		if got := versionCommit(in); got != want {
+			t.Errorf("versionCommit(%q) = %q, want %q", in, got, want)
+		}
+	}
+}
