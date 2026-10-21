@@ -1,0 +1,67 @@
+# Builds the linux/arm64 release that the Pi pulls (deploy/update.sh).
+# Mirrors the `before` hooks of .goreleaser.yml and scripts/build.sh from upstream.
+name: release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Version
+        run: |
+          base=$(git describe --tags --abbrev=0 --exclude '*-echo.*')
+          tag="${base}-echo.${GITHUB_RUN_NUMBER}"
+          echo "TAG=$tag" >> "$GITHUB_ENV"
+          echo "VERSION=${tag#v}" >> "$GITHUB_ENV"
+
+      - name: Swagger, web assets and licenses
+        run: |
+          go run ./vendor/github.com/go-swagger/go-swagger/cmd/swagger generate spec --scan-models --exclude-deps -o web/assets/swagger.yaml
+          sed -i "s/REPLACE_ME/${VERSION}/" web/assets/swagger.yaml
+          yarn --cwd ./web/source install --frozen-lockfile
+          yarn --cwd ./web/source ts-patch install
+          yarn --cwd ./web/source build
+          ./scripts/bundle_licenses.sh
+
+      - name: Build linux/arm64
+        env:
+          GOOS: linux
+          GOARCH: arm64
+        run: ./scripts/build.sh
+
+      - name: Package
+        run: |
+          name="gotosocial_${VERSION}_linux_arm64.tar.gz"
+          tar -czf "$name" gotosocial LICENSE README.md web/assets web/template example/config.yaml example/gotosocial.service
+          sha256sum "$name" > checksums.txt
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$TAG" "gotosocial_${VERSION}_linux_arm64.tar.gz" checksums.txt \
+            --target "$GITHUB_SHA" --title "$TAG" --generate-notes --latest
