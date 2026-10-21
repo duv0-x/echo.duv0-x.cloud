@@ -311,11 +311,14 @@ button, .button {
     "displayname role"
     "username username";
   column-gap: 0.625rem;
-  align-items: center;
+}
+/* Badge sits on the name's baseline (bottom-left of the badge next to the name) */
+.profile .profile-header .basic-info .namerole .displayname,
+.profile .profile-header .basic-info .namerole .role {
+  align-self: last baseline;
 }
 .profile .profile-header .basic-info .namerole .role {
   justify-self: start;
-  align-self: center;
 }
 /* Shorter banner on desktop (upstream uses 3:1) */
 @media screen and (min-width: 751px) {
